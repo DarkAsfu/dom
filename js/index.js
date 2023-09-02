@@ -42,10 +42,18 @@ const buttonId = async (id) => {
 
   data.data.forEach((card) => {
     console.log(card)
+    function formatTime(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+      
+      return `${hours}h ${minutes}m ${remainingSeconds}s`;
+    }
     const div = document.createElement('div');
     div.innerHTML = `
         <div class="card md:w-[300px] h-[400px] bg-base-100 shadow-xl">
-      <img style={{height: '200px !important'}} className="w-[300px]" src=${card.thumbnail} />
+      <img style={{height: '200px !important'}} className="w-[300px] relative" src=${card.thumbnail} />
+      <p class='absolute bg-blue-500 text-white px-3 py-1 rounded-full top-3 left-3'>${formatTime(card.others.posted_date)}</p>
       <div class="card-body">
         <div class="flex flex-row">
           <img class="rounded-full w-[40px] h-[40px]" src=${card.authors[0].profile_picture} alt="">
