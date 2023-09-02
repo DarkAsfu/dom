@@ -1,35 +1,51 @@
-const handle = async() =>{
-  const response=await fetch("https://openapi.programming-hero.com/api/videos/categories")
- const data=await response.json();
+const handle = async () => {
+  const response = await fetch("https://openapi.programming-hero.com/api/videos/categories")
+  const data = await response.json();
 
- const tabContainer=document.getElementById('tab-container');
- console.log(data.data);
-      data.data.forEach((category) =>{
-        
-       
-        const div=document.createElement("div")
-        div.innerHTML = `
+  const tabContainer = document.getElementById('tab-container');
+  console.log(data.data);
+  data.data.forEach((category) => {
+
+
+    const div = document.createElement("div")
+    div.innerHTML = `
               <a onclick="buttonId('${category.category_id}')" class="tab ">${category.category}</a>
                           `;
 
-        tabContainer.appendChild(div);
+    tabContainer.appendChild(div);
 
-        });       
+  });
 };
 
-     const buttonId = async (id) => {
+const buttonId = async (id) => {
+  const DrawingContainer = document.getElementById("image-con");
 
-    const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
-    const data=await response.json();
-   
-      const cardContainer=document.getElementById("card-container");
-      cardContainer.innerHTML= "" ;
-      data.data.forEach((card) => {
-        console.log(card) 
-        const div=document.createElement('div');
-        div.innerHTML = `
-        <div class="card card-compact w-96 bg-base-100 shadow-xl">
-      <figure><img src=${card.thumbnail} /></figure>
+  // Check if the id is 1005 and clear the DrawingContainer if it is
+  if (id === "1005") {
+    console.log('vv');
+    DrawingContainer.innerHTML = "";
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <img className="h-[200px] w-[300px]" src='../image/Icon.png' />
+    `;
+    DrawingContainer.appendChild(div);
+  } else {
+    // Clear the DrawingContainer for other ids
+    DrawingContainer.innerHTML = "";
+  }
+
+  const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
+  const data = await response.json();
+
+  const cardContainer = document.getElementById("card-container");
+  cardContainer.innerHTML = "";
+
+  data.data.forEach((card) => {
+    console.log(card)
+    const div = document.createElement('div');
+    div.innerHTML = `
+        <div class="card md:w-[300px] h-[400px] bg-base-100 shadow-xl">
+      <img style={{height: '200px !important'}} className="w-[300px]" src=${card.thumbnail} />
       <div class="card-body">
         <div class="flex flex-row">
           <img class="rounded-full w-[40px] h-[40px]" src=${card.authors[0].profile_picture} alt="">
@@ -53,26 +69,19 @@ const handle = async() =>{
         
       </div>
     </div>
-
-        
         `;
 
-        const DrawingContainer=document.getElementById("image-con");
-      if(id==="1005"){
-        console.log(DrawingContainer);
-      }
-      
-        cardContainer.appendChild(div);
+    cardContainer.appendChild(div);
 
-      });
+  });
 
-     
-      
+
+
 };
 
 
 
-handle( );
+handle();
 buttonId("1000");
 
 
