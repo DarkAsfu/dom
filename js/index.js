@@ -9,9 +9,8 @@ const handle = async () => {
 
     const div = document.createElement("div")
     div.innerHTML = `
-              <a onclick="buttonId('${category.category_id}')" class="tab ">${category.category}</a>
-                          `;
-
+       <a onclick="buttonId('${category.category_id}')" class="tab bg-[#EF4444] text-white px-4 pb-2 ml-2 rounded-full">${category.category}</a>
+   `
     tabContainer.appendChild(div);
 
   });
@@ -19,8 +18,6 @@ const handle = async () => {
 
 const buttonId = async (id) => {
   const DrawingContainer = document.getElementById("image-con");
-
-  // Check if the id is 1005 and clear the DrawingContainer if it is
   if (id === "1005") {
     console.log('vv');
     DrawingContainer.innerHTML = "";
@@ -30,7 +27,6 @@ const buttonId = async (id) => {
     `;
     DrawingContainer.appendChild(div);
   } else {
-    // Clear the DrawingContainer for other ids
     DrawingContainer.innerHTML = "";
   }
 
